@@ -20,10 +20,18 @@ export class MapOverviewComponent implements AfterViewInit, OnInit {
   ngOnInit() {
     this.map.zoomToGeographic({
       left: -100,
-      top: -10,
+      top: 5,
       width: 50,
       height: 20
     });
+
+    // Crea un marcador
+    const marcador = {
+      latitude: 40.7128,
+      longitude: -74.0060,
+      tooltip: 'Nueva York'
+    };
+
   }
 
   ngAfterViewInit() {

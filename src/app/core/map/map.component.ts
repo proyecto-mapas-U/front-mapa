@@ -3,6 +3,16 @@ import L from 'leaflet';
 import {ServicesSocketService} from '../../services/services-socket.service';
 import {ServicesGeolocationService} from '../../services/services-geolocation.service';
 
+// Define la ruta de los iconos manualmente
+const iconDefault = L.icon({
+  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+  iconSize: [25, 41], // tamaño del icono
+  iconAnchor: [12, 41], // punto donde se ancla el icono en el mapa
+  popupAnchor: [1, -34], // punto donde se abrirá el popup relativo al icono
+  shadowSize: [41, 41]  // tamaño de la sombra del icono
+});
+
 @Component({
   selector: 'app-map',
   standalone: true,
@@ -35,7 +45,9 @@ export class MapComponent implements OnInit {
       this.latitud = data.coords.latitude;
       this.longitud = data.coords.longitude;
       if (this.mapa) {
-        L.marker([this.latitud, this.longitud]).addTo(this.mapa);
+        // centra el mapa en la posicion actual del usuario
+        this.mapa.panTo([this.latitud, this.longitud]);
+        L.marker([this.latitud, this.longitud], {icon: iconDefault}).addTo(this.mapa);
       }
       else console.log('El mapa no se ha inicializado aún');
     });

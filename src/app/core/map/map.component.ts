@@ -38,6 +38,7 @@ export class MapComponent implements OnInit {
       console.log('Mensaje => ', data);
     });
     this.obtenerGeolocalizacion();
+    setInterval(() => this.obtenerGeolocalizacion(), 5000);
   }
 
   private obtenerGeolocalizacion() {

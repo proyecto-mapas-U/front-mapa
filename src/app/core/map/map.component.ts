@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import L from 'leaflet';
-import {ServicesSocketService} from "../../services/services-socket.service";
-import {ServicesGeolocationService} from "../../services/services-geolocation.service";
+import {ServicesSocketService} from '../../services/services-socket.service';
+import {ServicesGeolocationService} from '../../services/services-geolocation.service';
 
 @Component({
   selector: 'app-map',
@@ -13,8 +13,8 @@ import {ServicesGeolocationService} from "../../services/services-geolocation.se
 export class MapComponent implements OnInit {
 
   public mapa: L.Map | undefined;
-  private latitud?: number;
-  private longitud?: number;
+  private latitud: number = 0;
+  private longitud: number = 0;
 
   constructor(
     private serviceSocket: ServicesSocketService,
@@ -24,18 +24,19 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.initMap();
-    this.serviceSocket.obtenerRespuesta().subscribe((data) => {
+    this.serviceSocket.obtenerRespuesta().subscribe((data: GeolocationPosition) => {
       console.log('Mensaje => ', data);
     });
     this.obtenerGeolocalizacion();
   }
 
   private obtenerGeolocalizacion() {
-    this.servicesGeolocation.obtenerGeolocalizacionEnTiempoReal().subscribe((data) => {
+    this.servicesGeolocation.obtenerGeolocalizacionEnTiempoReal().subscribe((data: { coords: { latitude: number; longitude: number; }; }) => {
       this.latitud = data.coords.latitude;
       this.longitud = data.coords.longitude;
-      if (this.mapa)
+      if (this.mapa) {
         L.marker([this.latitud, this.longitud]).addTo(this.mapa);
+      }
       else console.log('El mapa no se ha inicializado aún');
     });
   }

@@ -10,7 +10,7 @@ export class ServicesSocketService {
   private messagesSubject: Subject<any> = new Subject<any>();
 
   constructor() {
-    this.webSocket = new WebSocket('ws://localhost:8080')
+    this.webSocket = new WebSocket('ws://localhost:8080/');
 
     this.webSocket.onopen = (event) => {
       console.log('Conexión abierta => ', event);

@@ -69,4 +69,9 @@ export class MapComponent implements OnInit {
       // centra el mapa en la posicion actual del usuario
       this.mapa.panTo([this.latitud(), this.longitud()]);
   }
-}
+
+   public mostrar:boolean = true;
+
+  
+  }
+

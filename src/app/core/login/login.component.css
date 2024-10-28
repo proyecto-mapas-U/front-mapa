@@ -1,0 +1,24 @@
+h2{
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+button{
+    margin-top: 1rem;
+}
+
+.card{
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 10%;
+    min-width: 30vw;
+    min-height: 80vh;
+    height: 80vh;
+    width: 30vw;
+    background-color: black;
+    opacity: .9;
+    backdrop-filter:blur(120px);
+}
+
+
+

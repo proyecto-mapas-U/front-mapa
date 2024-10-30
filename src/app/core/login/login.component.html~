@@ -18,7 +18,7 @@
                             El numero de teléfono es obligatorio
                         </div>
                     </form>
-                    <button class="btn btn-outline-primary btn-submit" (click)="login()">Login</button>
+                    <button class="btn btn-outline-primary btn-submit" style="" (click)="login()">Login</button>
                 </div>
             </div>
         </div>

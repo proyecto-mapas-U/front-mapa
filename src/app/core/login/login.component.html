@@ -6,10 +6,16 @@
                     <h2 style="color: white;">ENCUENTRA TU UBICACION</h2>
                     <form >
                         <div class="mb-2">
-                            <input type="text" class="form-control" placeholder="Ingrese un nombre">
+                            <input type="text" class="form-control" formControlName="name" placeholder="Ingrese un nombre">
+                        </div>
+                        <div class="alert alert-danger" [hidden]="formlogin.get('name')?.valid || formlogin.get('name')?.pristine">
+                            El nombre es obligaotrio
                         </div>
                         <div class="mb-2">
-                            <input type="number" class="form-control" placeholder="Ingrese un numero">
+                            <input type="text" class="form-control" formArrayName="numero" placeholder="Ingrese un numero">
+                        </div>
+                        <div class="alert alert-danger" [hidden]="formlogin.get('numero')?.valid || formlogin.get('numero')?.pristine">
+                            El numero de telefono es obligatorio
                         </div>
                     </form>
                     <button class="btn btn-outline-primary" style="width: 50%; position: absolute; text-align: center; left: 25%;" (click)="login()">Login</button>

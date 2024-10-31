@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
-import {ReactiveFormsModule, Validators, FormBuilder, FormGroup} from '@angular/forms';
+import {ReactiveFormsModule, Validators, FormBuilder, FormGroup, Form} from '@angular/forms';
 import {FormControl} from '@angular/forms';
 import {NgIf} from '@angular/common';
 
@@ -29,11 +29,11 @@ export class LoginComponent {
   }
 
   get name() {
-    return this.formlogin.get('name')
+    return this.formlogin.get('name' ) as FormControl;
   }
 
   get numero() {
-    return this.formlogin.get('numero')
+    return this.formlogin.get('numero') as FormControl;
   }
 
 }

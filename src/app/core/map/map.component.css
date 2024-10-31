@@ -1,3 +1,16 @@
 #map {
   height: 100vh;
 }
+
+video {
+  position: absolute;
+  height: 130vh;
+  width: 100vw;
+  z-index: -1;
+  object-fit: cover;
+}
+
+.mapa{
+  width: 70vw;
+  left: 7%;
+}

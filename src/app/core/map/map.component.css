@@ -1,16 +1,33 @@
-#map {
-  height: 100vh;
+.video-container {
+  width: 100vh; /* Ajusta el tamaño del contenedor */
+  margin: 0 auto; /* Centra el contenedor */
+  overflow: hidden; /* Asegura que el video no sobresalga */
 }
 
-video {
-  position: absolute;
-  height: 130vh;
-  width: 100vw;
-  z-index: -1;
-  object-fit: cover;
+.fullscreen-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100vh;
+  min-height: 100vh;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%); /* Centra el video */
+  z-index: -1 !important;
 }
 
 .mapa{
   width: 70vw;
-  left: 7%;
+  height: 70vh !important;
+}
+
+.inicio{
+  width: 20%;
+  height: 40%;
+}
+
+@media (max-height : 700px) {
+  .mapa{
+    height: 60vh !important;
+  }
 }

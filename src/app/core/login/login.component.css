@@ -1,6 +1,9 @@
 h2 {
   text-align: center;
-  margin-bottom: 5rem;
+}
+
+img{
+  margin: 1rem;
 }
 
 button {
@@ -10,14 +13,11 @@ button {
 .card {
   top: 50%;
   transform: translate(0, -50%);
-  left: 10%;
-  min-width: 30vw;
-  min-height: 80vh;
-  height: 80vh;
-  width: 30vw;
+  height: 70vh;
   background-color: black;
   opacity: .9;
   backdrop-filter: blur(120px);
+  text-align: center;
 }
 
 .fila-principal {

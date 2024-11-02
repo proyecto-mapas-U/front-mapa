@@ -1,29 +1,36 @@
+<div class="relative h-screen w-screen">
+  <video src="https://cdn.pixabay.com/video/2022/06/10/119843-719443761_large.mp4" class="fixed inset-0 min-h-full min-w-full object-cover" autoplay loop></video>
+</div>
 <div class="container">
   <div class="row" style="opacity: 1;">
     <div class="col" id="ubicacion">
       <h2 style="color: white; text-align: center; margin-top: 1rem; margin-bottom: 4rem;">UBICACION</h2>
       <div class="gap-3 d-md-flex justify-content-between" style="margin-bottom: 2rem;">
         <button class="btn btn-primary" (click)="centrarUbicacion()">Centrar</button>
-        <button class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#bus">Buscar persona</button>
+        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#busqueda  ">Buscar persona</button>
       </div>
-      <div id="map"></div>
+      <div class="mapa" id="map"></div>
     </div>
   </div>
 
-  <div class="offcanvas offcanvas-start" tabindex="1" id="bus">
-    <div class="offcanvas-header">
-      <h3>Buscar</h3>
-      <button class="btn-close text-reset" data-bs-dismiss="offcanvas" name="button"></button>
-    </div>
-    <div class="offcanvas-body">
-      <form>
-        <div class="mb-2">
-          <label class="form-label">Telefono</label>
-          <input type="text" class="form-control" placeholder="Ingrese el numero de telefono que desea buscar">
+  <div class="modal fade" id="busqueda">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Buscar persona</h5>
+          <button class="btn-close text-reset" data-bs-dismiss="modal" name="button"></button>
         </div>
-        <button class="btn btn-outline-danger">Buscar</button>
-      </form>
+        <div class="modal-body">
+          <form>
+            <div class="mb-2">
+              <label class="form-label">Telefono</label>
+              <input type="text" class="form-control" placeholder="Ingrese el numero de telefono que desea buscar">
+            </div>
+            <button class="btn btn-outline-danger">Buscar</button>
+          </form>
+        </div>
+      </div>
     </div>
-  </div> 
+  </div>
 </div> 
   

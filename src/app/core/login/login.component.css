@@ -14,7 +14,7 @@ button {
   top: 50%;
   transform: translate(0, -50%);
   height: 70vh;
-  background-color: black;
+  background-color: rgb(29, 27, 27);
   opacity: .9;
   backdrop-filter: blur(120px);
   text-align: center;
@@ -41,3 +41,4 @@ button {
   background-repeat: no-repeat;
   backdrop-filter: blur(2px);
 }
+

@@ -2,18 +2,18 @@
     <div class="row fila-principal">
         <div class="col-md-3">
             <div class="card">
-                <div class="car-body" style="padding: 1rem 1rem;">
-                    <h2 style="color: white;">ENCUENTRA TU UBICACION</h2>
+                <div class="car-body justify-content-center" style="padding: 1rem 1rem;">
+                    <h2 style="color: #0793ff;">ENCUENTRA TU UBICACION</h2>
                     <img src="https://img.icons8.com/?size=100&id=U1cbNtgDXO2m&format=png&color=000000" alt="gif" style="width: 80px;">
                     <form [formGroup]="formlogin" >
                         <div class="mb-2">
-                            <input type="text" class="form-control" formControlName="name" placeholder="Ingrese un nombre">
+                            <input type="text" class="form-control input" formControlName="name" placeholder="Ingrese un nombre">
                         </div>
                         <div class="alert alert-danger" [hidden]="name.valid || name.pristine">
                             El nombre es obligatorio
                         </div>
                         <div class="mb-2">
-                            <input type="text" class="form-control" formControlName="numero" placeholder="Ingrese un numero">
+                            <input type="text" class="form-control input" formControlName="numero" placeholder="Ingrese un numero">
                         </div>
                         <div class="alert alert-danger" [hidden]="numero.valid || numero.pristine">
                             El numero de teléfono es obligatorio

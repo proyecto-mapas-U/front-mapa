@@ -1,5 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-/* From Uiverse.io by barisdogansutcu */ 
+
 button {
     padding: 17px 40px;
     border-radius: 50px;
@@ -29,3 +28,22 @@ button {
     transition: 100ms;
   }
   
+ 
+  .input {
+    color: white;
+    border: 2px solid #0793ff;
+    border-radius: 10px;
+    padding: 10px 25px;
+    background: transparent;
+    
+    
+  }
+  
+  .input:active {
+    box-shadow: 2px 2px 15px #0793ff inset;
+  }
+  
+  .input::placeholder{
+    color: #0793ff;
+  }
+

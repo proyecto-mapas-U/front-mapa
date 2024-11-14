@@ -4,6 +4,7 @@ import {ReactiveFormsModule, Validators, FormBuilder, FormGroup, Form} from '@an
 import {FormControl} from '@angular/forms';
 import {NgIf} from '@angular/common';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -17,6 +18,23 @@ export class LoginComponent {
     'name': new FormControl('', Validators.required),
     'numero': new FormControl('', Validators.required)
   });
+
+  nombre:string = '';
+  telefono:string = '';
+
+  nomusuario:string = 'admin';
+
+  datlogin() {
+    const datoslogin = {
+      nombre : this.nombre,
+      telefono : this.telefono
+    };
+    if(this.nombre == this.nomusuario){
+      console.log('correcto')
+    }else{
+      console.log('incorrecto')
+    };
+  };
 
   constructor(
     private readonly router: Router

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  socketUrl: 'wss://148.113.201.6:9001'
+  socketUrl: 'ws://geolocalizador-app.website:9000/'
 };

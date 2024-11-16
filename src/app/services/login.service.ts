@@ -13,7 +13,7 @@ export class LoginService {
     private http: HttpClient
   ) { }
 
-  login(usuario: Usuario): Observable<Usuario> {
+  registrar(usuario: Usuario): Observable<Usuario> {
     return this.http.post<any>(`${this.API_URL}/login.php`, usuario);
   }
 }

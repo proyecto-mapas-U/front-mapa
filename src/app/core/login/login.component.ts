@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {ReactiveFormsModule, Validators, FormBuilder, FormGroup, Form, FormsModule} from '@angular/forms';
 import {FormControl} from '@angular/forms';
-import {NgIf} from '@angular/common';
 import { LoginService } from '../../services/login.service';
+import {Usuario} from "../../models/Usuario.model";
 
 
 @Component({
@@ -14,36 +14,40 @@ import { LoginService } from '../../services/login.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  nomrbre : string = "";
-  telefono : string = "";
+  protected nombre: string = "";
+  protected numero: string = "";
 
   formlogin = new FormGroup({//validadores de campos *nombre *telefono
-    'name': new FormControl('', Validators.required),
+    'nombre': new FormControl('', Validators.required),
     'numero': new FormControl('', Validators.required)
   });
 
   constructor(
     private readonly router: Router,
-    public datoslogin : LoginService //inyeccion de servicios
+    private loginService : LoginService //inyeccion de servicios
   ) {
   }
 
-  enviardatos(){
-    this.datoslogin.comprobardatos(this.nomrbre,this.telefono);
-    this.nomrbre = "";
-    this.telefono = "";
-    console.log('se envio correctamente');
+  enviarDatos(){
+    const usuario : Usuario = {
+      nombre: this.nombre,
+      numero: this.numero
+    }
+    this.loginService.registrar(usuario);
+    this.nombre = "";
+    this.numero = "";
+    console.log('se envío correctamente');
   }
 
   login() {
     this.router.navigate(['/mapa']);
   }
 
-  get name() {
-    return this.formlogin.get('name' ) as FormControl;
+  get obtenerNombre() {
+    return this.formlogin.get('nombre' ) as FormControl;
   }
 
-  get numero() {
+  get obtenerNumero() {
     return this.formlogin.get('numero') as FormControl;
   }
 

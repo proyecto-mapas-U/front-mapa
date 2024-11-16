@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {Usuario} from "../models/Usuario.model";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,8 +13,7 @@ export class LoginService {
     private http: HttpClient
   ) { }
 
-  login(username: string, password: string): Observable<any> {
-    const body = {username, password};
-    return this.http.post<any>(`${this.API_URL}/login.php`, body);
+  login(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<any>(`${this.API_URL}/login.php`, usuario);
   }
 }

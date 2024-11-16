@@ -1,46 +1,39 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
-import {ReactiveFormsModule, Validators, FormBuilder, FormGroup, Form} from '@angular/forms';
+import {ReactiveFormsModule, Validators, FormBuilder, FormGroup, Form, FormsModule} from '@angular/forms';
 import {FormControl} from '@angular/forms';
 import {NgIf} from '@angular/common';
+import { DatosloginService } from '../../datoslogin.service';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule,FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  nomrbre : string = "";
+  telefono : string = "";
 
-  formlogin = new FormGroup({
+  formlogin = new FormGroup({//validadores de campos *nombre *telefono
     'name': new FormControl('', Validators.required),
     'numero': new FormControl('', Validators.required)
   });
 
-  nombre:string = '';
-  telefono:string = '';
-
-  nomusuario:string = 'admin';
-
-  datlogin() {
-    const datoslogin = {
-      nombre : this.nombre,
-      telefono : this.telefono
-    };
-    if(this.nombre == this.nomusuario){
-      console.log('correcto')
-    }else{
-      console.log('incorrecto')
-    };
-  };
-
   constructor(
-    private readonly router: Router
+    private readonly router: Router,
+    public datoslogin : DatosloginService //inyeccion de servicios
   ) {
   }
-
+  
+  enviardatos(){
+    this.datoslogin.comprobardatos(this.nomrbre,this.telefono);
+    this.nomrbre = "";
+    this.telefono = "";
+    console.log('se envio correctamente');
+  }
 
   login() {
     this.router.navigate(['/mapa']);

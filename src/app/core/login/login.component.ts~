@@ -5,7 +5,7 @@ import {FormControl} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import {Usuario} from "../../models/Usuario.model";
-
+import { Usuario } from '../../models/Usuario.model';
 
 
 @Component({

@@ -14,6 +14,6 @@ export class LoginService {
   ) { }
 
   registrar(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<any>(`${this.API_URL}/login.php`, usuario);
+    return this.http.post<any>(`${this.API_URL}/registro.php`, usuario);
   }
 }

@@ -35,13 +35,20 @@ export class LoginComponent {
       nombre: this.nombre,
       numero: this.numero
     }
-    this.loginService.registrar(usuario);
-    this.nombre = "";
-    this.numero = "";
-    console.log('se envío correctamente');
+    this.loginService.registrar(usuario).subscribe(
+      (respuesta) => {
+        console.log('se envío correctamente');
+        this.enrutarMapa();
+      },
+      (error) => {
+        console.log('ocurrio un error => ', error);
+        this.enrutarMapa();
+      }
+    );
   }
 
-  login() {
+  enrutarMapa() {
+    console.log('enrutar mapa');
     this.router.navigate(['/mapa']);
   }
 

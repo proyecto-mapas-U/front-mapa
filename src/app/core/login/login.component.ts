@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 import {ReactiveFormsModule, Validators, FormBuilder, FormGroup, Form, FormsModule} from '@angular/forms';
 import {FormControl} from '@angular/forms';
 import {NgIf} from '@angular/common';
-import { DatosloginService } from '../../datoslogin.service';
+import { LoginService } from '../../services/login.service';
 
 
 @Component({
@@ -24,10 +24,10 @@ export class LoginComponent {
 
   constructor(
     private readonly router: Router,
-    public datoslogin : DatosloginService //inyeccion de servicios
+    public datoslogin : LoginService //inyeccion de servicios
   ) {
   }
-  
+
   enviardatos(){
     this.datoslogin.comprobardatos(this.nomrbre,this.telefono);
     this.nomrbre = "";

@@ -1,6 +1,6 @@
-export class usuario {
+export class Usuario {
     constructor(
-        nombreusuario: string,
-        telefonousuario: string
+        public nombreusuario: string,
+        public telefonousuario: string
     ){}
 }

@@ -4,6 +4,7 @@ import {ReactiveFormsModule, Validators, FormBuilder, FormGroup, Form, FormsModu
 import {FormControl} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import { LoginService } from '../../services/login.service';
+import { Usuario } from '../../models/Usuario.model';
 
 
 @Component({
@@ -24,12 +25,15 @@ export class LoginComponent {
 
   constructor(
     private readonly router: Router,
-    public datoslogin : LoginService //inyeccion de servicios
+    public datoslogin : LoginService,
+    public usuario : Usuario//inyeccion de servicios
   ) {
   }
 
   enviardatos(){
-    this.datoslogin.comprobardatos(this.nomrbre,this.telefono);
+    this.usuario.nombreusuario = this.nomrbre;
+    this.usuario.telefonousuario = this.telefono;
+    //this.datoslogin.comprobardatos(this.nomrbre,this.telefono);
     this.nomrbre = "";
     this.telefono = "";
     console.log('se envio correctamente');

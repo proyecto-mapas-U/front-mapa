@@ -1,16 +1,79 @@
-#map {
-  height: 100vh;
+.ventana{
+  background: #07182E;
+  display: flex;
+  place-content: center;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 20px;
 }
 
-video {
+.ventana h5 {
+  z-index: 1;
+  color: #0793ff;
+  font-size: 2em;
+}
+
+.ventana .formulario{
+  z-index: 1 !important;
+}
+.ventana::before {
+  content: '';
   position: absolute;
-  height: 130vh;
-  width: 100vw;
-  z-index: -1;
-  object-fit: cover;
+  width: 100%;
+  background-image: linear-gradient(180deg, rgb(0, 183, 255), rgb(255, 48, 255));
+  height: 130%;
+  animation: rotBGimg 3s linear infinite;
+  transition: all 0.2s linear;
+}
+
+@keyframes rotBGimg {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ventana::after {
+  content: '';
+  position: absolute;
+  background: #07182E;
+  inset: 5px;
+  border-radius: 15px;
+}  
+
+.video-container {
+  width: 100vh; 
+  margin: 0 auto; 
+  overflow: hidden; 
+}
+
+.fullscreen-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100vh;
+  min-height: 100vh;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%); /* Centra el video */
+  z-index: -1 !important;
 }
 
 .mapa{
   width: 70vw;
-  left: 7%;
+  height: 70vh !important;
+}
+
+.inicio{
+  width: 20%;
+  height: 40%;
+}
+
+@media (max-height : 700px) {
+  .mapa{
+    height: 60vh !important;
+  }
 }

@@ -1,3 +1,6 @@
+@if(this.mensajeError() !== '') {
+  <p class="alert alert-danger">{{this.mensajeError()}}</p>
+}
 <div class="container-fluid">
     <div class="row fila-principal">
         <div class="col log" >
@@ -20,7 +23,6 @@
                         </div>
                         <button class="btn btn-outline-primary entrar" [disabled]="formlogin.invalid">Login</button>
                     </form>
-
                 </div>
             </div>
         </div>

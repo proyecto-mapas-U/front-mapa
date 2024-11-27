@@ -33,6 +33,7 @@ export class LoginComponent {
     const usuario: Usuario = this.obtenerDatosFormulario();
     this.loginService.registrar(usuario).subscribe(
       (respuesta) => {
+        console.log(respuesta);
         if (respuesta.success)
           this.enrutarMapa(respuesta.data.id);
         else this.mensajeError.set(respuesta.mensaje);

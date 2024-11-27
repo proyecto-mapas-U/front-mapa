@@ -8,7 +8,7 @@ export class ServicesGeolocationService {
 
   constructor() { }
 
-  obtenerGeolocalizacionEnTiempoReal(): Observable<GeolocationPosition> {
+  obtenerLocalizacionLocal(): Observable<GeolocationPosition> {
     return new Observable((observer) => {
       const watchId = navigator.geolocation.watchPosition(
         (position: GeolocationPosition) => {

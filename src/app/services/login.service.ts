@@ -7,7 +7,7 @@ import {Usuario} from "../models/Usuario.model";
   providedIn: 'root'
 })
 export class LoginService {
-  private API_URL = 'http://localhost/backend-mapa-u/back-mapa/rest';
+  private API_URL = 'http://localhost/back-mapa/rest/registro.php';
 
   constructor(
     private http: HttpClient
@@ -15,5 +15,9 @@ export class LoginService {
 
   registrar(usuario: Usuario): Observable<Usuario> {
     return this.http.post<any>(`${this.API_URL}/registro.php`, usuario);
+  }
+
+  buscar(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<any>(`${this.API_URL}/buscar.php`, usuario);
   }
 }

@@ -10,32 +10,9 @@ button {
   margin-top: 1rem;
 }
 
-.card {
-  top: 50%;
-  transform: translate(0, -50%);
-  height: 70vh;
-  width: 40ch;
-  background-color:transparent;
-  backdrop-filter: blur(55px);
-  text-align: center;
-}
-
-.card:hover{
-  background-color: black;
-  opacity: .9;
-  transition: 1s;
-}
-
 .fila-principal {
   height: 100vh;
   width: 100vw;
-}
-
-.entrar {
-  width: 50%;
-  position: absolute;
-  text-align: center;
-  left: 25%;
 }
 
 .container-fluid{
@@ -51,4 +28,6 @@ button {
   justify-content: center;
   text-align: center;
 }
+
+
 

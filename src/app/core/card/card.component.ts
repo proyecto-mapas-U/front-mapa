@@ -65,6 +65,16 @@ export class CardComponent {
   }
 
   consultarDatos() {
+    this.loginService.logear(this.obtenerNumero.value).subscribe(
+      (respuesta) => {
+        if (respuesta.success) {
+          window.alert(respuesta.mensaje);
+        }
+      }, (error) => {
+        window.alert(error.mensaje);
+      }
+    )
+    
   }
 
   cambioFondo(event: MouseEvent) {

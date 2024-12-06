@@ -22,7 +22,7 @@ export class LoginService {
     return this.http.post<RespuestaRestDtoModel>(`${this.registroUrl}/registro.php`, usuario);
   }
 
-  buscar(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<any>(`${this.registroUrl}/buscar.php`, usuario);
+  logear(usuario: Usuario): Observable<RespuestaRestDtoModel> {
+    return this.http.post<RespuestaRestDtoModel>(`${this.registroUrl}/login.php`, usuario);
   }
 }

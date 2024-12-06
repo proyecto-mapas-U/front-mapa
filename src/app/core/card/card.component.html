@@ -2,7 +2,7 @@
   <div class="car-body justify-content-center" style="padding: 1rem 1rem;">
     <h2 style="color: #0793ff;">ENCUENTRA TU UBICACION</h2>
     <img src="https://img.icons8.com/?size=100&id=U1cbNtgDXO2m&format=png&color=000000" alt="gif" style="width: 80px;">
-    <form [formGroup]="formLogin" (ngSubmit)="enviarDatos()">
+    <form [formGroup]="formLogin">
       @if (formLogin.get('nombre')) {
         <div class="mb-2">
           <input type="text" class="form-control input" [(ngModel)]="nombre" formControlName="nombre"
@@ -23,7 +23,8 @@
           El numero de teléfono es obligatorio
         </div>
       }
-      <button class="btn btn-outline-primary entrar" [disabled]="formLogin.invalid">Login</button>
+      <button class="btn btn-outline-primary entrar" [disabled]="formLogin.invalid" [hidden]="cambiarFondo()" (click)="enviarDatos()">Login</button>
+      <button class="btn btn-outline-primary entrar" [disabled]="formLogin.invalid" [hidden]="!cambiarFondo()" (click)="consultarDatos()">Entrar</button>
     </form>
     <div class="registrar" [hidden]="!cambiarFondo()">
       <p class="text-primary">

@@ -22,19 +22,14 @@ export class LoginComponent {
 
   fondo: any[] = [
     {
-      url: "background-image: url(https://wallpaperaccess.com/full/7130206.jpg); background-size: cover; background-repeat: no-repeat; height: 100vh; width: 100vw;",
+      url: "background-image: url(https://wallpaperaccess.com/full/7130206.jpg); background-size: cover; background-repeat: no-repeat; height: 100vh; width: 100vw; transition: 1s;",
     },
     {
-      url: "background-image: url(https://images.unsplash.com/photo-1446776899648-aa78eefe8ed0?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z29vZ2xlJTIwbWFwJTIwdmlld3xlbnwwfHwwfHx8MA%3D%3D); background-size: cover; background-repeat: no-repeat; height: 100vh; width: 100vw;",
+      url: "background-image: url(https://images.unsplash.com/photo-1446776899648-aa78eefe8ed0?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z29vZ2xlJTIwbWFwJTIwdmlld3xlbnwwfHwwfHx8MA%3D%3D); background-size: cover; background-repeat: no-repeat; height: 100vh; width: 100vw; transition: 1s;",
     }
   ];
   
-  imagenFondo: string = 'background-image: url(https://wallpaperaccess.com/full/7130206.jpg); background-size: cover; background-repeat: no-repeat; height: 100vh; width: 100vw;';
-
-  formlogin = new FormGroup({//validadores de campos *nombre *telefono
-    'nombre': new FormControl('', Validators.required),
-    'numero': new FormControl('', Validators.required)
-  });
+  imagenFondo: string = 'background-image: url(https://wallpaperaccess.com/full/7130206.jpg); background-size: cover; background-repeat: no-repeat; height: 100vh; width: 100vw; transition: 1s;';
 
   constructor(
     private readonly router: Router,
@@ -55,6 +50,8 @@ export class LoginComponent {
   cambioFondo(){
     if (!this.mostrarLoginEnPadre){
       this.imagenFondo = this.fondo[1].url
+    }else{
+      this.imagenFondo = this.fondo[0].url
     }
   }
  

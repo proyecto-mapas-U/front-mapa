@@ -62,10 +62,10 @@ export class CardComponent {
   }
 
   consultarDatos(){}
-  
+
   cambioFondo(event: MouseEvent) {
     event.preventDefault(); // Evita que se ejecute la acción por defecto
-    this.mostrarLogin = false;
+    this.mostrarLogin = !this.mostrarLogin;
     this.enviarCambio.emit(this.mostrarLogin);
   }
 

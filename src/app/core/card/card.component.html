@@ -24,6 +24,8 @@
         <div class="registrar"  [hidden]="!mostrarLogin">
             <p class="text-primary">No tienes cuenta?  <a class="link-offset-2 link-underline link-underline-opacity-25 " href="" (click)="cambioFondo($event)">Registrate</a></p>
         </div>
+        <div class="volver" [hidden]="mostrarLogin">
+            <a class="link-offset-2 link-underline link-underline-opacity-25" href="" (click)="cambioFondo($event)">volver</a>
+        </div>
     </div>
 </div>
-{{mostrarLogin}}

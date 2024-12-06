@@ -21,4 +21,8 @@ export class LoginService {
   registrar(usuario: Usuario): Observable<RespuestaRestDtoModel> {
     return this.http.post<RespuestaRestDtoModel>(`${this.registroUrl}/registro.php`, usuario);
   }
+
+  buscar(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<any>(`${this.registroUrl}/buscar.php`, usuario);
+  }
 }

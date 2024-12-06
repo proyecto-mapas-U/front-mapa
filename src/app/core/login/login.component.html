@@ -1,31 +1,10 @@
 @if(this.mensajeError() !== '') {
   <p class="alert alert-danger">{{this.mensajeError()}}</p>
 }
-<div class="container-fluid">
+<div class="container-fluid" (enviarCambio)="recibirdatos($event)" [style]="imagenfondo">
     <div class="row fila-principal">
         <div class="col log" >
-            <div class="card">
-                <div class="car-body justify-content-center" style="padding: 1rem 1rem;">
-                    <h2 style="color: #0793ff;">ENCUENTRA TU UBICACION</h2>
-                    <img src="https://img.icons8.com/?size=100&id=U1cbNtgDXO2m&format=png&color=000000" alt="gif" style="width: 80px;">
-                    <form [formGroup]="formlogin" (ngSubmit)="enviarDatos()">
-                        <div class="mb-2">
-                            <input type="text" class="form-control input" [(ngModel)]="nombre" formControlName="nombre" placeholder="Ingrese un nombre">
-                        </div>
-                        <div class="alert alert-danger" [hidden]="obtenerNombre.valid || obtenerNombre.pristine">
-                            El nombre es obligatorio
-                        </div>
-                        <div class="mb-2">
-                            <input type="text" class="form-control input" [(ngModel)]="numero" formControlName="numero" placeholder="Ingrese un numero">
-                        </div>
-                        <div class="alert alert-danger" [hidden]="obtenerNumero.valid || obtenerNumero.pristine">
-                            El numero de teléfono es obligatorio
-                        </div>
-                        <button class="btn btn-outline-primary entrar" [disabled]="formlogin.invalid">Login</button>
-                    </form>
-                </div>
-            </div>
+            <app-card></app-card>  
         </div>
     </div>
 </div>
-

@@ -53,6 +53,7 @@ export class CardComponent {
       (respuesta) => {
         if (respuesta.success) {
           window.alert(respuesta.mensaje);
+          this.router.navigate(['/mapa', respuesta.data.id]);
         }
       }, (error) => {
         window.alert(error.mensaje);
@@ -61,6 +62,7 @@ export class CardComponent {
   }
 
   private construirUsuario(): Usuario {
+    console.log(this.obtenerNombre.value, this.obtenerNumero.value);
     return new Usuario(this.obtenerNombre.value, this.obtenerNumero.value);
   }
 

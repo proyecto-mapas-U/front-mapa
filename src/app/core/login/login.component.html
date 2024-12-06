@@ -1,10 +1,10 @@
 @if(this.mensajeError() !== '') {
   <p class="alert alert-danger">{{this.mensajeError()}}</p>
 }
-<div class="container-fluid" (enviarCambio)="recibirdatos($event)" [style]="imagenfondo">
+<div class="container-fluid" [style]="imagenFondo">
     <div class="row fila-principal">
         <div class="col log" >
-            <app-card></app-card>  
+            <app-card (enviarCambio)="recibirDatos($event)"></app-card>
         </div>
     </div>
 </div>

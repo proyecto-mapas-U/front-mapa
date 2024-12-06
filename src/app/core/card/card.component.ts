@@ -15,25 +15,25 @@ import { FondosService } from '../../services/fondos.service';
   styleUrl: './card.component.css'
 })
 export class CardComponent {
+
+  @Output() enviarCambio: EventEmitter<boolean> = new EventEmitter();
+
   protected nombre: string = "";
   protected numero: string = "";
   protected formLogin: FormGroup;
   mostrarLogin: boolean = true;
 
-  
-
   constructor(
     private readonly router: Router,
     private loginService : LoginService, //inyeccion de servicios
   ) {
-
     this.formLogin = new FormGroup({//validadores de campos *nombre *telefono
       'numero': new FormControl('', Validators.required)
     });
     if (!this.mostrarLogin){
       const nombre = new FormControl('',Validators.required);
       this.formLogin.addControl('nombre',nombre);
-    } 
+    }
   }
 
   get obtenerNombre() {
@@ -60,8 +60,6 @@ export class CardComponent {
       }
     );
   }
-
-  @Output() enviarCambio: EventEmitter<boolean> = new EventEmitter();
   cambioFondo(event: MouseEvent) {
     event.preventDefault(); // Evita que se ejecute la acción por defecto
     this.mostrarLogin = false;

@@ -15,9 +15,21 @@ import { CardComponent } from "../card/card.component";
 })
 export class LoginComponent {
 
+  mostrarLoginEnPadre: boolean = true;
   protected nombre: string = "";
   protected numero: string = "";
   protected mensajeError: WritableSignal<string> = signal('');
+
+  fondo: any[] = [
+    {
+      url: "background-image: url(https://wallpaperaccess.com/full/7130206.jpg); background-size: cover; background-repeat: no-repeat; height: 100vh; width: 100vw;",
+    },
+    {
+      url: "background-image: url(https://images.unsplash.com/photo-1446776899648-aa78eefe8ed0?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z29vZ2xlJTIwbWFwJTIwdmlld3xlbnwwfHwwfHx8MA%3D%3D); background-size: cover; background-repeat: no-repeat; height: 100vh; width: 100vw;",
+    }
+  ];
+
+  imagenFondo: string = 'background-image: url(https://wallpaperaccess.com/full/7130206.jpg); background-size: cover; background-repeat: no-repeat; height: 100vh; width: 100vw;';
 
   formlogin = new FormGroup({//validadores de campos *nombre *telefono
     'nombre': new FormControl('', Validators.required),
@@ -51,24 +63,11 @@ export class LoginComponent {
   enrutarMapa(idUsuario: number) {
     this.router.navigate(['/mapa', idUsuario]);
   }
-  
-  fondo: any[] = [
-    {
-      url: "background-image: url(https://wallpaperaccess.com/full/7130206.jpg); background-size: cover; background-repeat: no-repeat; height: 100vh; width: 100vw;",
-    },
-    {
-      url: "background-image: url(https://images.unsplash.com/photo-1446776899648-aa78eefe8ed0?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z29vZ2xlJTIwbWFwJTIwdmlld3xlbnwwfHwwfHx8MA%3D%3D); background-size: cover; background-repeat: no-repeat; height: 100vh; width: 100vw;",
-    }
-  ]
 
-  imagenfondo: string = 'background-image: url(https://wallpaperaccess.com/full/7130206.jpg); background-size: cover; background-repeat: no-repeat; height: 100vh; width: 100vw;';
-
-  mostrarLoginEnPadre: boolean = true;
-
-  recibirdatos(dato: boolean) {
+  recibirDatos(dato: boolean) {
     this.mostrarLoginEnPadre = dato;
     console.log("Estado recibido en el padre:", this.mostrarLoginEnPadre);
   }
 }
- 
+
 

@@ -1,29 +1,37 @@
 <div class="card">
-    <div class="car-body justify-content-center" style="padding: 1rem 1rem;">
-        <h2 style="color: #0793ff;">ENCUENTRA TU UBICACION</h2>
-        <img src="https://img.icons8.com/?size=100&id=U1cbNtgDXO2m&format=png&color=000000" alt="gif" style="width: 80px;">
-        <form [formGroup]="formLogin" (ngSubmit)="enviarDatos()">
-            <div class="mb-2">
-                <input type="text" class="form-control input" [(ngModel)]="nombre" formControlName="nombre" placeholder="Ingrese un nombre" [hidden]="mostrarLogin">
-            </div>
-            @if (!mostrarLogin) {
-                <div class="alert alert-danger" [hidden]="obtenerNombre.valid || obtenerNombre.pristine">
-                    El nombre es obligatorio
-                </div>
-            }
-            <div class="mb-2">
-                <input type="text" class="form-control input" [(ngModel)]="numero" formControlName="numero" placeholder="Ingrese un numero">
-            </div>
-            @if (formLogin.invalid) {
-                <div class="alert alert-danger">
-                    El numero de teléfono es obligatorio
-                </div>
-            }
-            <button class="btn btn-outline-primary entrar" [disabled]="formLogin.invalid">Login</button>
-        </form>
-        <div class="registrar"  [hidden]="!mostrarLogin">
-            <p class="text-primary">No tienes cuenta?  <a class="link-offset-2 link-underline link-underline-opacity-25 " href="" (click)="cambioFondo($event)">Registrate</a></p>
+  <div class="car-body justify-content-center" style="padding: 1rem 1rem;">
+    <h2 style="color: #0793ff;">ENCUENTRA TU UBICACION</h2>
+    <img src="https://img.icons8.com/?size=100&id=U1cbNtgDXO2m&format=png&color=000000" alt="gif" style="width: 80px;">
+    <form [formGroup]="formLogin" (ngSubmit)="enviarDatos()">
+      @if (formLogin.get('nombre')) {
+        <div class="mb-2">
+          <input type="text" class="form-control input" [(ngModel)]="nombre" formControlName="nombre"
+                 placeholder="Ingrese un nombre" [hidden]="cambiarFondo()">
         </div>
+      }
+      @if (!cambiarFondo() && formLogin.get('nombre')) {
+        <div class="alert alert-danger" [hidden]="obtenerNombre.valid">
+          El nombre es obligatorio
+        </div>
+      }
+      <div class="mb-2">
+        <input type="text" class="form-control input" [(ngModel)]="numero" formControlName="numero"
+               placeholder="Ingrese un numero">
+      </div>
+      @if (formLogin.invalid) {
+        <div class="alert alert-danger">
+          El numero de teléfono es obligatorio
+        </div>
+      }
+      <button class="btn btn-outline-primary entrar" [disabled]="formLogin.invalid">Login</button>
+    </form>
+    <div class="registrar" [hidden]="!cambiarFondo()">
+      <p class="text-primary">
+        No tienes cuenta?
+        <a class="link-offset-2 link-underline link-underline-opacity-25 " href="" (click)="cambioFondo($event)">
+          Registrate
+        </a>
+      </p>
     </div>
+  </div>
 </div>
-{{mostrarLogin}}

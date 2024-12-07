@@ -53,7 +53,7 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     this.clearIntervals();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     const yaRecargado = localStorage.getItem('componenteRecargado');
     if (!yaRecargado) {
       localStorage.setItem('componenteRecargado', 'true');

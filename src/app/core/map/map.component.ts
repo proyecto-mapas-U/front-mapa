@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
 import L from 'leaflet';
 import {ServicesGeolocationService} from '../../services/services-geolocation.service';
 import {CoordenadasService} from '../../services/coordenadas.service';
@@ -21,7 +21,7 @@ const iconDefault = L.icon({
   templateUrl: './map.component.html',
   styleUrl: './map.component.css'
 })
-export class MapComponent implements OnInit, OnDestroy {
+export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public mapa: L.Map | undefined;
   private marker: L.Marker | undefined;
@@ -41,6 +41,7 @@ export class MapComponent implements OnInit, OnDestroy {
     if (this.idUsuario()) {
       this.initMap();
       this.registrarCoordenadas();
+      this.obtenerCoordenadasLocales();
       this.initIntervals();
     } else {
       // TODO Manejar Alerta
@@ -50,6 +51,16 @@ export class MapComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.clearIntervals();
+  }
+
+  ngAfterViewInit() {
+    const yaRecargado = localStorage.getItem('componenteRecargado');
+    if (!yaRecargado) {
+      localStorage.setItem('componenteRecargado', 'true');
+      setTimeout(() => {
+        window.location.reload(); // Recargar la página después de 3 segundos
+      }, 3000);
+    }
   }
 
   private initIntervals(): void {
@@ -71,6 +82,7 @@ export class MapComponent implements OnInit, OnDestroy {
       .subscribe((data: { coords: { latitude: number; longitude: number; }; }) => {
         this.latitud.set(data.coords.latitude);
         this.longitud.set(data.coords.longitude);
+        console.log('coordenadas => ', this.latitud(), this.longitud());
         this.actualizarCoordenadas();
       });
   }
@@ -104,8 +116,6 @@ export class MapComponent implements OnInit, OnDestroy {
     this.coordenadasService.actualizarCoordenadas(this.construirCoordenadas())
       .subscribe((respuesta) => {
         console.log('actualizarCoordenadas => ', respuesta);
-        if (this.marker)
-          this.marker.remove();
       })
   }
 
@@ -121,7 +131,10 @@ export class MapComponent implements OnInit, OnDestroy {
     this.coordenadasService.verificarCoordenadasUsuario(this.idUsuario())
       .subscribe((respuesta) => {
         if (!respuesta.success) {
-          this.coordenadasService.guardarCoordenadas(this.construirCoordenadas());
+          this.coordenadasService.guardarCoordenadas(this.construirCoordenadas())
+            .subscribe((respuesta) => {
+              console.log('guardarCoordenadas => ', respuesta);
+            });
         }
       });
   }

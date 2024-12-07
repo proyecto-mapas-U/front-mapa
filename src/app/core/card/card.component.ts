@@ -47,11 +47,12 @@ export class CardComponent {
     return this.formLogin.get('numero') as FormControl;
   }
 
-  registrar() {
+  registrar(): void {
     this.loginService.registrar(this.construirUsuario()).subscribe(
       (respuesta) => {
         if (respuesta.success) {
           window.alert(respuesta.mensaje);
+          localStorage.setItem('id', respuesta.data.id.toString());
           this.router.navigate(['/mapa']);
         }
       }, (error) => {

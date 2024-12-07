@@ -17,8 +17,8 @@ export class CoordenadasService {
   ) {
   }
 
-  public guardarCoordenadas(coordenadas: CoordenadasModel) {
-    this.http.post(`${this.urlGuardarCoordenadas}/enviar_coordenadas.php`, coordenadas);
+  public guardarCoordenadas(coordenadas: CoordenadasModel): Observable<RespuestaRestDtoModel> {
+   return this.http.post<RespuestaRestDtoModel>(`${this.urlGuardarCoordenadas}/enviar_coordenadas.php`, coordenadas);
   }
 
   public obtenerCoordenadasUsuario(idUsuario: number): Observable<RespuestaRestDtoModel> {
@@ -38,6 +38,7 @@ export class CoordenadasService {
   }
 
   public actualizarCoordenadas(coordenadas: CoordenadasModel): Observable<RespuestaRestDtoModel> {
+    console.log('actualizarCoordenadas => ', coordenadas);
     return this.http.post<RespuestaRestDtoModel>(`${this.urlGuardarCoordenadas}/actualizar_coordenadas.php`, coordenadas);
   }
 }

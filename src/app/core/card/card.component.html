@@ -23,8 +23,8 @@
           El numero de teléfono es obligatorio
         </div>
       }
-      <button class="btn btn-outline-primary entrar" [disabled]="formLogin.invalid" [hidden]="cambiarFondo()" (click)="enviarDatos()">Login</button>
-      <button class="btn btn-outline-primary entrar" [disabled]="formLogin.invalid" [hidden]="!cambiarFondo()" (click)="consultarDatos()">Entrar</button>
+      <button class="btn btn-outline-primary entrar" [disabled]="formLogin.invalid" [hidden]="!cambiarFondo()" (click)="login()">Login</button>
+      <button class="btn btn-outline-primary entrar" [disabled]="formLogin.invalid" [hidden]="cambiarFondo()" (click)="registrar()">Entrar</button>
     </form>
     <div class="registrar" [hidden]="!cambiarFondo()">
       <p class="text-primary">

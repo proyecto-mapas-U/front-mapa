@@ -26,14 +26,18 @@ export class CoordenadasService {
   }
 
   public obtenerCoordenadasGlobales(): Observable<RespuestaRestDtoModel> {
-    return this.http.get<RespuestaRestDtoModel>(`${this.urlGuardarCoordenadas}/obtener_coordenadas_globales.php`);
+    return this.http.get<RespuestaRestDtoModel>(`${this.urlGuardarCoordenadas}/coordenadas_globales.php`);
   }
 
   public verificarCoordenadasUsuario(idUsuario: number): Observable<RespuestaRestDtoModel> {
-    return this.http.get<RespuestaRestDtoModel>(`${this.urlGuardarCoordenadas}/verificar_coordenadas_usuario.php?idUsuario=${idUsuario}`);
+    return this.http.get<RespuestaRestDtoModel>(`${this.urlGuardarCoordenadas}/verificar_coordenadas_usuario.php`, {
+      params: {
+        idUsuario: idUsuario.toString()
+      }
+    });
   }
 
-  public actualizarCoordenadas(coordenadas: CoordenadasModel): void {
-    this.http.post(`${this.urlGuardarCoordenadas}/actualizar_coordenadas.php`, coordenadas);
+  public actualizarCoordenadas(coordenadas: CoordenadasModel): Observable<RespuestaRestDtoModel> {
+    return this.http.post<RespuestaRestDtoModel>(`${this.urlGuardarCoordenadas}/actualizar_coordenadas.php`, coordenadas);
   }
 }

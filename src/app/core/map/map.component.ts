@@ -1,9 +1,8 @@
-import {Component, OnInit, signal, WritableSignal} from '@angular/core';
+import {Component, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
 import L from 'leaflet';
-import {ServicesSocketService} from '../../services/services-socket.service';
 import {ServicesGeolocationService} from '../../services/services-geolocation.service';
-import {CoordenadasService} from "../../services/coordenadas.service";
-import {CoordenadasModel} from "../../models/Coordenadas.model";
+import {CoordenadasService} from '../../services/coordenadas.service';
+import {CoordenadasModel} from '../../models/Coordenadas.model';
 
 // Define la ruta de los iconos manualmente
 const iconDefault = L.icon({
@@ -22,77 +21,106 @@ const iconDefault = L.icon({
   templateUrl: './map.component.html',
   styleUrl: './map.component.css'
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
 
   public mapa: L.Map | undefined;
   private marker: L.Marker | undefined;
-
   private latitud: WritableSignal<number> = signal(0);
   private longitud: WritableSignal<number> = signal(0);
   private idUsuario: WritableSignal<number> = signal(0);
+  private intervalCoordenadasGlobales!: ReturnType<typeof setInterval>;
 
   constructor(
     private servicesGeolocation: ServicesGeolocationService,
-    private coordenadasService: CoordenadasService
+    private coordenadasService: CoordenadasService,
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.obtenerIdParametros();
     if (this.idUsuario()) {
       this.initMap();
-      this.obtenerCoordenadasLocales();
       this.registrarCoordenadas();
-      setInterval(() => this.obtenerCoordenadasLocales(), 5000);
-      this.obtenerCoordenadasGlobales();
-      setInterval(() => this.obtenerCoordenadasGlobales(), 5000);
+      this.initIntervals();
     } else {
       // TODO Manejar Alerta
       console.log('No se proporcionó un id de usuario en la ruta');
     }
   }
 
-  private obtenerCoordenadasLocales() {
-    this.servicesGeolocation.obtenerLocalizacionLocal()
-      .subscribe((data: { coords: { latitude: number; longitude: number; }; }) => {
-      this.latitud.set(data.coords.latitude);
-      this.longitud.set(data.coords.longitude);
-      if (this.mapa) {
-        if (this.marker)
-          this.marker.remove();
-        this.marker = L.marker([this.latitud(), this.longitud()], {icon: iconDefault}).addTo(this.mapa);
-        this.actualizarCoordenadas();
-      }
-      else console.log('El mapa no se ha inicializado aún');
-    });
+  ngOnDestroy(): void {
+    this.clearIntervals();
   }
 
-  private obtenerCoordenadasGlobales() {
+  private initIntervals(): void {
+    this.obtenerCoordenadas();
+    this.intervalCoordenadasGlobales = setInterval(() => this.obtenerCoordenadas(), 5000);
+  }
+
+  private clearIntervals(): void {
+    if (this.intervalCoordenadasGlobales)
+      clearInterval(this.intervalCoordenadasGlobales);
+  }
+
+  /**
+   * Método encargado de obtener la ubicación actual del usuario
+   * @private
+   */
+  private obtenerCoordenadasLocales(): void {
+    this.servicesGeolocation.obtenerLocalizacionLocal()
+      .subscribe((data: { coords: { latitude: number; longitude: number; }; }) => {
+        this.latitud.set(data.coords.latitude);
+        this.longitud.set(data.coords.longitude);
+        this.actualizarCoordenadas();
+      });
+  }
+
+  private obtenerCoordenadas(): void {
+    this.obtenerCoordenadasLocales();
     this.coordenadasService.obtenerCoordenadasGlobales()
       .subscribe((respuesta) => {
+        console.log(respuesta);
         if (respuesta.success && this.mapa) {
-          if (this.marker)
-            this.marker.remove();
+          this.limpiarMarkers();
           respuesta.data.forEach((coordenada: any) => {
-            L.marker([coordenada.latitud, coordenada.longitud], {icon: iconDefault}).addTo(this.mapa??L.map("map"));
-          })
+            this.marker = L.marker([coordenada.latitud, coordenada.longitud], {icon: iconDefault}).addTo(this.mapa ?? L.map("map"));
+            this.marker.bindPopup(`Latitud: ${coordenada.latitud}, Longitud: ${coordenada.longitud}`);
+            // this.marker.openPopup();
+          });
         }
       });
   }
 
-  private actualizarCoordenadas() {
-    this.coordenadasService.actualizarCoordenadas(this.construirCoordenadas());
+  private limpiarMarkers(): void {
+    // Clear existing markers from the map
+    this.mapa!.eachLayer((layer) => {
+      if (layer instanceof L.Marker) {
+        this.mapa?.removeLayer(layer);
+      }
+    });
   }
 
+  private actualizarCoordenadas(): void {
+    this.coordenadasService.actualizarCoordenadas(this.construirCoordenadas())
+      .subscribe((respuesta) => {
+        console.log('actualizarCoordenadas => ', respuesta);
+        if (this.marker)
+          this.marker.remove();
+      })
+  }
+
+  /**
+   * Método encargado de obtener id del usuario registrado en base de datos
+   * @private
+   */
   private obtenerIdParametros(): void {
-    const urlParams = new URLSearchParams(window.location.search);
-    this.idUsuario.set(Number(urlParams.get('idUsuario')));
+    this.idUsuario.set(localStorage.getItem('id') as unknown as number);
   }
 
   private registrarCoordenadas(): void {
     this.coordenadasService.verificarCoordenadasUsuario(this.idUsuario())
-      .subscribe((data) => {
-        if (!data.success) {
+      .subscribe((respuesta) => {
+        if (!respuesta.success) {
           this.coordenadasService.guardarCoordenadas(this.construirCoordenadas());
         }
       });
@@ -102,19 +130,16 @@ export class MapComponent implements OnInit {
     return new CoordenadasModel(this.idUsuario(), this.latitud(), this.longitud());
   }
 
-  private initMap() {
+  private initMap(): void {
     this.mapa = L.map("map").setView([5.53528, -73.36778], 15);
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png?", {}).addTo(this.mapa);
   }
 
-  centrarUbicacion() {
+  centrarUbicacion(): void {
     if (this.mapa)
       // centra el mapa en la posicion actual del usuario
       this.mapa.panTo([this.latitud(), this.longitud()]);
   }
 
-   public mostrar:boolean = true;
-
-
-  }
+}
 

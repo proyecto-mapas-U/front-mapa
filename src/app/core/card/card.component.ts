@@ -4,8 +4,7 @@ import {ReactiveFormsModule, Validators, FormBuilder, FormGroup, Form, FormsModu
 import {FormControl} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {LoginService} from '../../services/login.service';
-import {Usuario} from "../../models/Usuario.model";
-import {FondosService} from '../../services/fondos.service';
+import {Usuario} from '../../models/Usuario.model';
 
 @Component({
   selector: 'app-card',
@@ -33,7 +32,7 @@ export class CardComponent {
 
   constructor(
     private readonly router: Router,
-    private loginService: LoginService, //inyeccion de servicios
+    private loginService: LoginService,
   ) {
     this.formLogin = new FormGroup({//validadores de campos *nombre *telefono
       'numero': new FormControl('', Validators.required)
@@ -48,12 +47,12 @@ export class CardComponent {
     return this.formLogin.get('numero') as FormControl;
   }
 
-  enviarDatos() {
+  registrar() {
     this.loginService.registrar(this.construirUsuario()).subscribe(
       (respuesta) => {
         if (respuesta.success) {
           window.alert(respuesta.mensaje);
-          this.router.navigate(['/mapa', respuesta.data.id]);
+          this.router.navigate(['/mapa']);
         }
       }, (error) => {
         window.alert(error.mensaje);
@@ -62,21 +61,24 @@ export class CardComponent {
   }
 
   private construirUsuario(): Usuario {
-    console.log(this.obtenerNombre.value, this.obtenerNumero.value);
     return new Usuario(this.obtenerNombre.value, this.obtenerNumero.value);
   }
 
-  consultarDatos() {
-    this.loginService.logear(this.obtenerNumero.value).subscribe(
+  login() {
+    this.loginService.login(this.obtenerNumero.value).subscribe(
       (respuesta) => {
+        console.log(respuesta);
         if (respuesta.success) {
           window.alert(respuesta.mensaje);
+          localStorage.setItem('id', respuesta.data.id.toString());
+          this.router.navigate(['/mapa']);
         }
       }, (error) => {
-        window.alert(error.mensaje);
+        console.log(error);
+        window.alert('Ocurrió un error');
       }
     )
-    
+
   }
 
   cambioFondo(event: MouseEvent) {

@@ -22,7 +22,7 @@ export class LoginService {
     return this.http.post<RespuestaRestDtoModel>(`${this.registroUrl}/registro.php`, usuario);
   }
 
-  logear(usuario: Usuario): Observable<RespuestaRestDtoModel> {
-    return this.http.post<RespuestaRestDtoModel>(`${this.registroUrl}/login.php`, usuario);
+  login(numero: number): Observable<RespuestaRestDtoModel> {
+    return this.http.post<RespuestaRestDtoModel>(`${this.registroUrl}/login.php`, numero);
   }
 }
